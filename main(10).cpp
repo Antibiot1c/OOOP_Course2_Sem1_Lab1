@@ -1,15 +1,15 @@
-//Підключення бібліотек
+//ГЏВіГ¤ГЄГ«ЕџГ·ГҐГ­Г­Гї ГЎВіГЎГ«ВіГ®ГІГҐГЄ
 #define _CRT_SECURE_NO_DEPRECATE
 #include<stdio.h>
 #include<assert.h>
 #include<Windows.h>
 
-//Додаємо файли з кодом для майстра та підлеглого
+//Г„Г®Г¤Г ВєГ¬Г® ГґГ Г©Г«ГЁ Г§ ГЄГ®Г¤Г®Г¬ Г¤Г«Гї Г¬Г Г©Г±ГІДџГ  ГІГ  ГЇВіГ¤Г«ГҐГЈГ«Г®ГЈГ®
 #include "Book.h"
 #include "Character.h"
 #include "IndexFileRecord.h"
 
-//Додаємо ресурсні файли
+//Г„Г®Г¤Г ВєГ¬Г® ДџГҐГ±ГіДџГ±Г­Ві ГґГ Г©Г«ГЁ
 #define FILE_MODE "rb+"
 #define INDEX_FILE "Book.ind"
 #define MASTER_FILE "Book.fl"
@@ -18,11 +18,11 @@
 
 //-----------------------------------------------------------------------------------------------//
 //
-//Функції роботи з файлами
+// Г”ГіГ­ГЄГ¶ВіВї ДџГ®ГЎГ®ГІГЁ Г§ ГґГ Г©Г«Г Г¬ГЁ
 //
 //-----------------------------------------------------------------------------------------------//
 
-// Записи, упорядковані за ключем запису
+// Г‡Г ГЇГЁГ±ГЁ, ГіГЇГ®ДџГїГ¤ГЄГ®ГўГ Г­Ві Г§Г  ГЄГ«ЕџГ·ГҐГ¬ Г§Г ГЇГЁГ±Гі
 IndexFileRecord* ReadIndexFile(FILE* index_file, int& records_count)
 {
 	fseek(index_file, 0, SEEK_END);
@@ -45,7 +45,7 @@ void WriteIndexFile(FILE* index_file, IndexFileRecord* records, int records_coun
 	index_file = freopen(INDEX_FILE, FILE_MODE, index_file);
 }
 
-// Бінарний пошук
+// ГЃВіГ­Г ДџГ­ГЁГ© ГЇГ®ГёГіГЄ
 int BinarySearchOfTheBook(int book_id, IndexFileRecord* irecords, int records_count)
 {
 	int low = 0;
@@ -73,7 +73,7 @@ int BinarySearchOfTheBook(int book_id, IndexFileRecord* irecords, int records_co
 	return -1;
 }
 
-// Отримуємо адресу в індексному файлі
+// ГЋГІДџГЁГ¬ГіВєГ¬Г® Г Г¤ДџГҐГ±Гі Гў ВіГ­Г¤ГҐГЄГ±Г­Г®Г¬Гі ГґГ Г©Г«Ві
 int GetAddressInIndexFile(int book_id, FILE* index_file)
 {
 	int records_number;
@@ -84,7 +84,7 @@ int GetAddressInIndexFile(int book_id, FILE* index_file)
 	return address;
 }
 
-// Файл майстра
+// Г”Г Г©Г« Г¬Г Г©Г±ГІДџГ 
 bool CorrectMasterFile(int old_character_address, int new_character_address, FILE* master_file)
 {
 	fseek(master_file, 0, SEEK_SET);
@@ -106,7 +106,7 @@ bool CorrectMasterFile(int old_character_address, int new_character_address, FIL
 	return false;
 }
 
-// Файл підлеглого
+// Г”Г Г©Г« ГЇВіГ¤Г«ГҐГЈГ«Г®ГЈГ®
 bool CorrectSlaveFile(int old_character_address, int new_character_address, FILE* slave_file)
 {
 	fseek(slave_file, 0, SEEK_SET);
@@ -128,7 +128,7 @@ bool CorrectSlaveFile(int old_character_address, int new_character_address, FILE
 	return false;
 }
 
-// Файл індексний
+// Г”Г Г©Г« ВіГ­Г¤ГҐГЄГ±Г­ГЁГ©
 bool CorrectIndexFile(int old_qrecord_address, int new_qrecord_address,
 	IndexFileRecord* irecords, int irecord_count)
 {
@@ -143,7 +143,7 @@ bool CorrectIndexFile(int old_qrecord_address, int new_qrecord_address,
 	return false;
 }
 
-// У випадку помилки
+// Г“ ГўГЁГЇГ Г¤ГЄГі ГЇГ®Г¬ГЁГ«ГЄГЁ
 BookRecord GetBookRecord(int book_address, FILE* master_file)
 {
 	if (book_address == -1)
@@ -159,7 +159,7 @@ BookRecord GetBookRecord(int book_address, FILE* master_file)
 	return qrecord;
 }
 
-// У випадку відсутності даних
+// Г“ ГўГЁГЇГ Г¤ГЄГі ГўВіГ¤Г±ГіГІГ­Г®Г±ГІВі Г¤Г Г­ГЁГµ
 CharacterRecord GetCharacterRecord(int character_address, FILE* slave_file)
 {
 	if (character_address == -1)
@@ -180,7 +180,7 @@ CharacterRecord GetCharacterRecord(int character_address, FILE* slave_file)
 
 //-----------------------------------------------------------------------------------------------//
 //
-//Функції
+//Г”ГіГ­ГЄГ¶ВіВї
 //
 //-----------------------------------------------------------------------------------------------//
  
@@ -415,7 +415,7 @@ void GarbageCollector(FILE* index_file, FILE* master_file, FILE* slave_file,
 	master_file = fopen(master_filename, FILE_MODE);
 
 
-	// Оновимо індексний файл
+	// ГЋГ­Г®ГўГЁГ¬Г® ВіГ­Г¤ГҐГЄГ±Г­ГЁГ© ГґГ Г©Г«
 	WriteIndexFile(index_file, valid_irecords, valid_irecords_count);
 	delete[] valid_irecords;
 }
@@ -500,13 +500,13 @@ void Insert_S(Character character, int book_id,
 
 //-----------------------------------------------------------------------------------------------//
 //
-// Функції роботи з користувачем
+// Г”ГіГ­ГЄГ¶ВіВї ДџГ®ГЎГ®ГІГЁ Г§ ГЄГ®ДџГЁГ±ГІГіГўГ Г·ГҐГ¬
 //
 //-----------------------------------------------------------------------------------------------//
 
 
 
-// Додати Книгу
+// Г„Г®Г¤Г ГІГЁ ГЉГ­ГЁГЈГі
 void AddBook(FILE* index_file, FILE* master_file)
 {
 	system("cls");
@@ -528,7 +528,7 @@ void AddBook(FILE* index_file, FILE* master_file)
 	Insert_M(book, index_file, master_file);
 }
 
-// Отримати Книгу
+// ГЋГІДџГЁГ¬Г ГІГЁ ГЉГ­ГЁГЈГі
 void GetBook(FILE* index_file, FILE* master_file, FILE* slave_file)
 {
 	system("cls");
@@ -542,7 +542,7 @@ void GetBook(FILE* index_file, FILE* master_file, FILE* slave_file)
 	PrintBook(qrecord.book);
 }
 
-// Видалити Книгу
+// Г‚ГЁГ¤Г Г«ГЁГІГЁ ГЉГ­ГЁГЈГі
 void RemoveBook(FILE* index_file, FILE* master_file, FILE* slave_file)
 {
 	system("cls");
@@ -554,7 +554,7 @@ void RemoveBook(FILE* index_file, FILE* master_file, FILE* slave_file)
 	Del_M(book_id, index_file, master_file, slave_file);
 }
 
-// Змінити Книгу
+// Г‡Г¬ВіГ­ГЁГІГЁ ГЉГ­ГЁГЈГі
 void UpdateBook(FILE* index_file, FILE* master_file)
 {
 	system("cls");
@@ -620,7 +620,7 @@ void UpdateBook(FILE* index_file, FILE* master_file)
 	}
 }
 
-// Додати Персонажа
+// Г„Г®Г¤Г ГІГЁ ГЏГҐДџГ±Г®Г­Г Г¦Г 
 void AddCharacter(FILE* index_file, FILE* master_file, FILE* slave_file)
 {
 	system("cls");
@@ -643,7 +643,7 @@ void AddCharacter(FILE* index_file, FILE* master_file, FILE* slave_file)
 	Insert_S(character, book_id, index_file, master_file, slave_file);
 }
 
-// Отримати Персонажа
+// ГЋГІДџГЁГ¬Г ГІГЁ ГЏГҐДџГ±Г®Г­Г Г¦Г 
 void GetCharacter(FILE* index_file, FILE* master_file, FILE* slave_file)
 {
 	system("cls");
@@ -662,7 +662,7 @@ void GetCharacter(FILE* index_file, FILE* master_file, FILE* slave_file)
 	PrintCharacter(lrecord.character);
 }
 
-// Видалити Персонажа
+// Г‚ГЁГ¤Г Г«ГЁГІГЁ ГЏГҐДџГ±Г®Г­Г Г¦Г 
 void RemoveCharacter(FILE* index_file, FILE* master_file, FILE* slave_file)
 {
 	system("cls");
@@ -679,7 +679,7 @@ void RemoveCharacter(FILE* index_file, FILE* master_file, FILE* slave_file)
 		index_file, master_file, slave_file);
 }
 
-// Змінити Персонажа
+// Г‡Г¬ВіГ­ГЁГІГЁ ГЏГҐДџГ±Г®Г­Г Г¦Г 
 void UpdateCharacter(FILE* index_file, FILE* master_file, FILE* slave_file)
 {
 	system("cls");
@@ -737,13 +737,13 @@ void UpdateCharacter(FILE* index_file, FILE* master_file, FILE* slave_file)
 	}
 }
 
-// Вивести індексний файл
+// Г‚ГЁГўГҐГ±ГІГЁ ВіГ­Г¤ГҐГЄГ±Г­ГЁГ© ГґГ Г©Г«
 void PrintIndexFile(FILE* index_file)
 {
 	fseek(index_file, 0, SEEK_SET);
 	IndexFileRecord irecord;
 	printf("\n_____________________________________________\n");
-	printf("Key / Address in master file / Validity\n\n"); // ID ремонтника / Його шлях / Наявність
+	printf("Key / Address in master file / Validity\n\n"); // ID ДџГҐГ¬Г®Г­ГІГ­ГЁГЄГ  / Г‰Г®ГЈГ® ГёГ«ГїГµ / ГЌГ ГїГўГ­ВіГ±ГІГј
 	printf("\n_____________________________________________\n");
 	int pos = getc(index_file);
 	while (!feof(index_file) && !ferror(index_file) && pos != EOF)
@@ -760,13 +760,13 @@ void PrintIndexFile(FILE* index_file)
 	printf("\n_____________________________________________\n");
 }
 
-// Вивести файл майстра
+// Г‚ГЁГўГҐГ±ГІГЁ ГґГ Г©Г« Г¬Г Г©Г±ГІДџГ 
 void PrintMasterFile(FILE* master_file)
 {
 	fseek(master_file, 0, SEEK_SET);
 	BookRecord qrecord;
 	printf("\n_____________________________________________\n");
-	printf("\n\n\n Book ID / Address of the first slave record / Validity\n\n"); // ID ремонтника / Його шлях / Наявність
+	printf("\n\n\n Book ID / Address of the first slave record / Validity\n\n"); // ID ДџГҐГ¬Г®Г­ГІГ­ГЁГЄГ  / Г‰Г®ГЈГ® ГёГ«ГїГµ / ГЌГ ГїГўГ­ВіГ±ГІГј
 	printf("\n_____________________________________________\n");
 	int pos = getc(master_file);
 	while (!feof(master_file) && !ferror(master_file) && pos != EOF)
@@ -784,13 +784,13 @@ void PrintMasterFile(FILE* master_file)
 	printf("\n_____________________________________________\n");
 }
 
-// Вивести файл підлеглого
+// Г‚ГЁГўГҐГ±ГІГЁ ГґГ Г©Г« ГЇВіГ¤Г«ГҐГЈГ«Г®ГЈГ®
 void PrintSlaveFile(FILE* slave_file)
 {
 	fseek(slave_file, 0, SEEK_SET);
 	CharacterRecord lrecord;
 	printf("\n_____________________________________________\n");
-	printf("\n\n\n Character ID / Address of the next slave record / Validity\n\n"); // ID ремонтника / Його шлях / Наявність
+	printf("\n\n\n Character ID / Address of the next slave record / Validity\n\n"); // ID ДџГҐГ¬Г®Г­ГІГ­ГЁГЄГ  / Г‰Г®ГЈГ® ГёГ«ГїГµ / ГЌГ ГїГўГ­ВіГ±ГІГј
 	printf("\n_____________________________________________\n");
 	int pos = getc(slave_file);
 	while (!feof(slave_file) && !ferror(slave_file) && pos != EOF)
@@ -811,7 +811,7 @@ void PrintSlaveFile(FILE* slave_file)
 
 //-----------------------------------------------------------------------------------------------//
 // 
-// Менюшка
+// ГЊГҐГ­ЕџГёГЄГ 
 //
 //-----------------------------------------------------------------------------------------------//
 
@@ -910,7 +910,7 @@ void Menu(FILE* index_file, FILE* master_file, FILE* slave_file)
 }
 
 
-//Ресурсні файли
+//ДћГҐГ±ГіДџГ±Г­Ві ГґГ Г©Г«ГЁ
 int main()
 {
 	FILE* index_file = fopen("Book.ind", FILE_MODE);
