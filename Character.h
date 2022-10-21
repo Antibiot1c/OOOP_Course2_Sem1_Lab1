@@ -1,9 +1,11 @@
 // Підключення бібліотек
+// Connection of libraries
 #ifndef CHARACTER_H_
 #define CHARACTER_H_
 #include <stdio.h>
 
 // Структура для збереження даних
+// Structure for saving data
 struct Character
 {
 	int character_id;
@@ -12,6 +14,7 @@ struct Character
 };
 
 // Структура для запису даних
+// Structure for recording data
 struct CharacterRecord
 {
 	Character character;
@@ -20,10 +23,12 @@ struct CharacterRecord
 };
 
 // Підрахунок розміру
+// Calculate the size
 const int size_of_character_record = sizeof(int) + 40 * sizeof(char) + 40 * sizeof(char)
 + sizeof(int) + sizeof(bool);
 
 // Пишемо до файла
+// Write to the file
 void WriteToFile(CharacterRecord lrecord, FILE* file)
 {
 	fwrite((char*)&lrecord.character.character_id, sizeof(int), 1, file);
@@ -35,6 +40,7 @@ void WriteToFile(CharacterRecord lrecord, FILE* file)
 }
 
 // Читаємо з файла
+// Read from the file
 void ReadFromFile(FILE* file, CharacterRecord& lrecord)
 {
 	fread((char*)&lrecord.character.character_id, sizeof(int), 1, file);
@@ -46,6 +52,7 @@ void ReadFromFile(FILE* file, CharacterRecord& lrecord)
 }
 
 // Вихідні запити у користувача в консолі
+// Output data from the user in the console
 void PrintCharacter(Character character)
 {
 	printf("---------------------------------------------------\n");
