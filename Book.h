@@ -1,9 +1,11 @@
 // Підключення бібліотек
+// Connection of libraries
 #ifndef BOOK_H_
 #define BOOK_H_
 #include <stdio.h>
 
 // Структура для збереження даних
+// Structure for saving data
 struct Book
 {
 	int book_id;
@@ -16,6 +18,7 @@ struct Book
 };
 
 // Структура для запису даних
+// Structure for recording data
 struct BookRecord
 {
 	Book book;
@@ -24,10 +27,12 @@ struct BookRecord
 };
 
 // Підрахунок розміру
+// Calculate the size
 const int size_of_book_record = (sizeof(int) + 40 * sizeof(char) + 40 * sizeof(char) + sizeof(int) + sizeof(int) + 40 * sizeof(char) +
 	  sizeof(int) + sizeof(bool));
 
 // Пишемо до файла
+// Write to the file
 void WriteToFile(BookRecord qrecord, FILE* file)
 {
 	fwrite((char*)&qrecord.book.book_id, sizeof(int), 1, file);
@@ -42,6 +47,7 @@ void WriteToFile(BookRecord qrecord, FILE* file)
 }
 
 // Читаємо з файла
+// Read from the file
 void  ReadFromFile(FILE* file, BookRecord& qrecord)
 {
 	fread((char*)&qrecord.book.book_id, sizeof(int), 1, file);
@@ -56,6 +62,7 @@ void  ReadFromFile(FILE* file, BookRecord& qrecord)
 }
 
 // Вихідні данні у користувача в консолі
+// Output data from the user in the console
 void PrintBook(Book book)
 {
 	printf("---------------------------------------------------\n");
